@@ -3,47 +3,354 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MD Sakil Akmal • 2026 Verified Prop Trading Ledger</title>
+  <title>MD Sakil Akmal • 2026 Verified Trading Ledger</title>
   <style>
     :root {
       --bg: #030712;
-      --card-bg: rgba(17, 24, 39, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover: rgba(255, 255, 255, 0.16);
-      --accent-payout: #10b981;
-      --accent-invest: #f43f5e;
-      --accent-cyan: #06b6d4;
-      --accent-gold: #fbbf24;
-      --text-main: #f9fafb;
-      --text-sub: #9ca3af;
+      --card: rgba(17, 24, 39, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --payout: #10b981;
+      --invest: #f43f5e;
+      --cyan: #06b6d4;
+      --text: #f9fafb;
+      --sub: #9ca3af;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text-main); min-height: 100vh; padding-bottom: 70px; background-image: radial-gradient(circle at 12% 10%, rgba(16, 185, 129, 0.07), transparent 35%), radial-gradient(circle at 88% 90%, rgba(244, 63, 94, 0.07), transparent 35%); }
+    body { background-color: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
 
-    /* Header */
-    header { background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--card-border); padding: 16px 22px; position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
-    .brand-box { display: flex; align-items: center; gap: 12px; }
-    .badge-year { background: linear-gradient(135deg, #10b981, #06b6d4); color: #022c22; font-weight: 800; font-size: 0.72rem; padding: 4px 9px; border-radius: 6px; letter-spacing: 0.5px; }
-    .brand-title { font-size: 1.22rem; font-weight: 800; letter-spacing: -0.4px; color: #fff; }
-    .brand-sub { font-size: 0.75rem; color: var(--text-sub); }
+    header { background: #0b0f19; border-bottom: 1px solid var(--border); padding: 16px 20px; position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand h1 { font-size: 1.15rem; font-weight: 800; color: #fff; }
+    .brand p { font-size: 0.75rem; color: var(--sub); }
 
-    .header-controls { display: flex; align-items: center; gap: 10px; }
-    .currency-toggle { background: #0f172a; border: 1px solid var(--card-border); padding: 4px; border-radius: 10px; display: flex; gap: 4px; }
-    .curr-btn { background: transparent; border: none; color: var(--text-sub); padding: 6px 12px; font-size: 0.78rem; font-weight: 700; border-radius: 7px; cursor: pointer; transition: 0.2s; }
-    .curr-btn.active { background: #10b981; color: #022c22; }
+    .currency-box { display: flex; gap: 6px; background: #020617; border: 1px solid var(--border); padding: 4px; border-radius: 8px; }
+    .c-btn { background: none; border: none; color: var(--sub); padding: 6px 12px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; cursor: pointer; }
+    .c-btn.active { background: #10b981; color: #022c22; }
 
-    .container { max-width: 1280px; margin: 0 auto; padding: 22px 18px; display: flex; flex-direction: column; gap: 24px; }
+    .wrap { max-width: 1260px; margin: 0 auto; padding: 20px 16px; display: flex; flex-direction: column; gap: 20px; }
 
-    /* KPI Cards */
-    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 15px; }
-    .kpi-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.35); transition: transform 0.2s, border-color 0.2s; }
-    .kpi-card:hover { transform: translateY(-2px); border-color: var(--card-hover); }
-    .kpi-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-sub); letter-spacing: 0.6px; }
-    .kpi-val { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; }
-    .kpi-footer { font-size: 0.76rem; color: var(--text-sub); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+    .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .kpi-title { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--sub); }
+    .kpi-num { font-size: 1.6rem; font-weight: 800; }
+    .kpi-foot { font-size: 0.74rem; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .card-payout { border-color: rgba(16, 185, 129, 0.35); }
-    .card-payout .kpi-val { color: var(--accent-payout); }
-    
-    .card-invest { border-
+    .high-p { border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(145deg, #111827, rgba(16, 185, 129, 0.12)); }
+    .high-i { border-color: rgba(244, 63, 94, 0.4); background: linear-gradient(145deg, #111827, rgba(244, 63, 94, 0.12)); }
+
+    .filter-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; }
+    .filter-bar select { background: #020617; border: 1px solid var(--border); color: #fff; padding: 6px 10px; border-radius: 8px; font-size: 0.82rem; }
+
+    .split { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 960px) { .split { grid-template-columns: 1fr 1fr; } }
+
+    .panel { display: flex; flex-direction: column; gap: 12px; }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .panel-head h2 { font-size: 1.05rem; font-weight: 700; }
+
+    .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; max-height: 520px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.82rem; }
+    th { background: #020617; color: var(--sub); font-size: 0.68rem; text-transform: uppercase; padding: 11px 12px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); }
+    td { padding: 11px 12px; border-top: 1px solid var(--border); }
+    tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+    .tag { display: inline-block; font-size: 0.68rem; color: #94a3b8; background: #1f2937; padding: 2px 5px; border-radius: 4px; margin-top: 2px; }
+    .amt-p { color: var(--payout); font-weight: 800; text-align: right; }
+    .amt-i { color: var(--invest); font-weight: 800; text-align: right; }
+    .p-btn { background: rgba(6, 182, 212, 0.15); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.35); padding: 4px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 100; display: none; justify-content: center; align-items: center; padding: 16px; }
+    .modal.active { display: flex; }
+    .modal-box { background: #0f172a; border: 1px solid var(--border); border-radius: 14px; max-width: 600px; width: 100%; overflow: hidden; }
+    .modal-h { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.88rem; font-weight: 700; }
+    .modal-h button { background: none; border: none; color: var(--sub); font-size: 1.3rem; cursor: pointer; }
+    .modal-b { padding: 14px; text-align: center; max-height: 75vh; overflow-y: auto; }
+    .modal-b img { max-width: 100%; height: auto; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>MD Sakil Akmal • Trading Ledger</h1>
+      <p>15 Verified Payouts & 16 Investment Evaluations (2026)</p>
+    </div>
+    <div class="currency-box">
+      <button id="btn-usd" class="c-btn active" onclick="setCurrency('USD')">USD ($)</button>
+      <button id="btn-inr" class="c-btn" onclick="setCurrency('INR')">INR (₹)</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-title">Total Payouts</span>
+        <span class="kpi-num" style="color:var(--payout)" id="kpi-payout">$0</span>
+        <span class="kpi-foot">15 Verified Payouts</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-title">Total Capital Invested</span>
+        <span class="kpi-num" style="color:var(--invest)" id="kpi-invest">$0</span>
+        <span class="kpi-foot">16 Prop Account Purchases</span>
+      </div>
+
+      <div class="kpi-card high-p">
+        <span class="kpi-title" style="color:#6ee7b7">🏆 Highest Payout</span>
+        <span class="kpi-num" id="kpi-high-p">$0</span>
+        <span class="kpi-foot" style="color:#34d399" id="kpi-high-p-sub">-</span>
+      </div>
+
+      <div class="kpi-card high-i">
+        <span class="kpi-title" style="color:#fda4af">🔥 Highest Investment</span>
+        <span class="kpi-num" id="kpi-high-i">$0</span>
+        <span class="kpi-foot" style="color:#fb7185" id="kpi-high-i-sub">-</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-title">Net Balance</span>
+        <span class="kpi-num" style="color:var(--cyan)" id="kpi-net">$0</span>
+        <span class="kpi-foot">Payout minus Investment</span>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div>
+        <span>📅 <strong>Filter Month: </strong></span>
+        <select id="month-filter" onchange="render()">
+          <option value="ALL">All Months (2026)</option>
+          <option value="2026-02">February 2026</option>
+          <option value="2026-04">April 2026</option>
+          <option value="2026-05">May 2026</option>
+          <option value="2026-06">June 2026</option>
+          <option value="2026-07">July 2026</option>
+          <option value="2026-08">August 2026</option>
+          <option value="2026-09">September 2026</option>
+        </select>
+      </div>
+      <div>
+        Payout: <strong style="color:var(--payout)" id="f-p-val">$0</strong> | 
+        Invest: <strong style="color:var(--invest)" id="f-i-val">$0</strong>
+      </div>
+    </div>
+
+    <div class="split">
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2 style="color:var(--payout)">📥 Payouts Ledger</h2>
+          <span style="font-size:0.75rem; color:var(--sub)" id="badge-p">15 Records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Propfirm & Account</th>
+                <th style="text-align: right">Amount</th>
+                <th style="text-align: center">Proof</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-payout"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2 style="color:var(--invest)">📤 Investment Ledger</h2>
+          <span style="font-size:0.75rem; color:var(--sub)" id="badge-i">16 Records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Propfirm & Account</th>
+                <th style="text-align: right">Cost</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-invest"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="cert-modal" class="modal" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-h">
+        <span id="m-title">Certificate</span>
+        <button onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-b">
+        <img id="m-img" src="" alt="Proof Preview" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var currentCurrency = 'USD';
+
+    var PAYOUT_DATA = [
+      { id: 1, date: "2026-04-06", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 84.02, inr: 8200, file: "#1 (1).png" },
+      { id: 2, date: "2026-04-22", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 85.06, inr: 8200, file: "#1 (2).png" },
+      { id: 3, date: "2026-05-28", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 158.27, inr: 15400, file: "#1 (3).png" },
+      { id: 4, date: "2026-06-15", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 90.58, inr: 8800, file: "#1 (4).png" },
+      { id: 5, date: "2026-07-01", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 261.68, inr: 25500, file: "#1 (5).png" },
+      { id: 6, date: "2026-07-16", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 124.72, inr: 12100, file: "#1 (6).png" },
+      { id: 7, date: "2026-07-21", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 573.00, inr: 56000, file: "#1 (7).jpg" },
+      { id: 8, date: "2026-07-22", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 717.20, inr: 70000, file: "#1 (8).jpg" },
+      { id: 9, date: "2026-07-23", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 640.70, inr: 62500, file: "#1 (9).jpg" },
+      { id: 10, date: "2026-08-03", firm: "Goat Funded Trader (GFT)", size: "15,000$", usd: 450.95, inr: 44000, file: "#1 (10).png" },
+      { id: 11, date: "2026-08-03", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 506.00, inr: 49000, file: "#1 (11).jpg" },
+      { id: 12, date: "2026-08-04", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 543.40, inr: 53000, file: "#1 (12).jpg" },
+      { id: 13, date: "2026-08-05", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 644.70, inr: 63000, file: "#1 (13).jpg" },
+      { id: 14, date: "2026-08-11", firm: "Goat Funded Trader (GFT)", size: "5,750$", usd: 117.24, inr: 11000, file: "#1 (14).png" },
+      { id: 15, date: "2026-08-19", firm: "Goat Funded Trader (GFT)", size: "15,000$", usd: 192.14, inr: 18500, file: "#1 (15).png" }
+    ];
+
+    var INVEST_DATA = [
+      { id: 1, date: "2026-02-08", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 33, inr: 3300 },
+      { id: 2, date: "2026-04-09", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 43, inr: 4300 },
+      { id: 3, date: "2026-05-13", firm: "Funding Pips", size: "10,000$", usd: 44, inr: 4500 },
+      { id: 4, date: "2026-06-21", firm: "Goat Funded Trader (GFT)", size: "15000*3", usd: 162, inr: 16500 },
+      { id: 5, date: "2026-07-27", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56, inr: 5500 },
+      { id: 6, date: "2026-07-27", firm: "Goat Funded Trader (GFT)", size: "15k*3", usd: 136, inr: 13300 },
+      { id: 7, date: "2026-08-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 55, inr: 5400 },
+      { id: 8, date: "2026-08-13", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56, inr: 5600 },
+      { id: 9, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 63, inr: 6300 },
+      { id: 10, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 65, inr: 6500 },
+      { id: 11, date: "2026-09-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 25, inr: 2500 },
+      { id: 12, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55, inr: 5500 },
+      { id: 13, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55, inr: 5500 },
+      { id: 14, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53, inr: 5300 },
+      { id: 15, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53, inr: 5300 },
+      { id: 16, date: "2026-09-19", firm: "FN FUTURES", size: "25000x3", usd: 192, inr: 19000 }
+    ];
+
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      document.getElementById('btn-usd').className = 'c-btn ' + (curr === 'USD' ? 'active' : '');
+      document.getElementById('btn-inr').className = 'c-btn ' + (curr === 'INR' ? 'active' : '');
+      render();
+    }
+
+    function formatAmount(usd, inr) {
+      if (currentCurrency === 'USD') {
+        return '$' + Number(usd).toFixed(2);
+      }
+      return '₹' + Number(inr).toLocaleString('en-IN');
+    }
+
+    function openCert(id) {
+      var item = null;
+      for (var i = 0; i < PAYOUT_DATA.length; i++) {
+        if (PAYOUT_DATA[i].id === id) { item = PAYOUT_DATA[i]; break; }
+      }
+      if (!item) return;
+
+      document.getElementById('m-title').innerText = item.firm + " (" + formatAmount(item.usd, item.inr) + ")";
+      document.getElementById('m-img').src = encodeURIComponent(item.file);
+      document.getElementById('cert-modal').className = 'modal active';
+    }
+
+    function closeModal() {
+      document.getElementById('cert-modal').className = 'modal';
+      document.getElementById('m-img').src = '';
+    }
+
+    function render() {
+      var month = document.getElementById('month-filter').value;
+
+      var totalP_USD = 0, totalP_INR = 0;
+      for (var i = 0; i < PAYOUT_DATA.length; i++) {
+        totalP_USD += PAYOUT_DATA[i].usd;
+        totalP_INR += PAYOUT_DATA[i].inr;
+      }
+
+      var totalI_USD = 0, totalI_INR = 0;
+      for (var j = 0; j < INVEST_DATA.length; j++) {
+        totalI_USD += INVEST_DATA[j].usd;
+        totalI_INR += INVEST_DATA[j].inr;
+      }
+
+      var maxP = PAYOUT_DATA[0];
+      for (var k = 1; k < PAYOUT_DATA.length; k++) {
+        if (PAYOUT_DATA[k].usd > maxP.usd) maxP = PAYOUT_DATA[k];
+      }
+
+      var maxI = INVEST_DATA[0];
+      for (var l = 1; l < INVEST_DATA.length; l++) {
+        if (INVEST_DATA[l].usd > maxI.usd) maxI = INVEST_DATA[l];
+      }
+
+      document.getElementById('kpi-payout').innerText = formatAmount(totalP_USD, totalP_INR);
+      document.getElementById('kpi-invest').innerText = formatAmount(totalI_USD, totalI_INR);
+      document.getElementById('kpi-net').innerText = formatAmount(totalP_USD - totalI_USD, totalP_INR - totalI_INR);
+
+      document.getElementById('kpi-high-p').innerText = formatAmount(maxP.usd, maxP.inr);
+      document.getElementById('kpi-high-p-sub').innerText = maxP.firm + " • " + maxP.date;
+
+      document.getElementById('kpi-high-i').innerText = formatAmount(maxI.usd, maxI.inr);
+      document.getElementById('kpi-high-i-sub').innerText = maxI.firm + " • " + maxI.date;
+
+      var fPayouts = [];
+      for (var m = 0; m < PAYOUT_DATA.length; m++) {
+        if (month === 'ALL' || PAYOUT_DATA[m].date.indexOf(month) === 0) {
+          fPayouts.push(PAYOUT_DATA[m]);
+        }
+      }
+
+      var fInvests = [];
+      for (var n = 0; n < INVEST_DATA.length; n++) {
+        if (month === 'ALL' || INVEST_DATA[n].date.indexOf(month) === 0) {
+          fInvests.push(INVEST_DATA[n]);
+        }
+      }
+
+      var fP_USD = 0, fP_INR = 0;
+      for (var p = 0; p < fPayouts.length; p++) { fP_USD += fPayouts[p].usd; fP_INR += fPayouts[p].inr; }
+      var fI_USD = 0, fI_INR = 0;
+      for (var q = 0; q < fInvests.length; q++) { fI_USD += fInvests[q].usd; fI_INR += fInvests[q].inr; }
+
+      document.getElementById('f-p-val').innerText = formatAmount(fP_USD, fP_INR);
+      document.getElementById('f-i-val').innerText = formatAmount(fI_USD, fI_INR);
+
+      document.getElementById('badge-p').innerText = fPayouts.length + " Records";
+      var pRows = "";
+      for (var a = 0; a < fPayouts.length; a++) {
+        var itemP = fPayouts[a];
+        pRows += '<tr>' +
+          '<td style="color:#64748b; font-weight:700;">#' + (a + 1) + '</td>' +
+          '<td style="color:#94a3b8; font-size:0.75rem;">' + itemP.date + '</td>' +
+          '<td><strong>' + itemP.firm + '</strong><br><span class="tag">' + itemP.size + '</span></td>' +
+          '<td class="amt-p">' + formatAmount(itemP.usd, itemP.inr) + '</td>' +
+          '<td style="text-align: center;"><button class="p-btn" onclick="openCert(' + itemP.id + ')">👁 Proof</button></td>' +
+        '</tr>';
+      }
+      document.getElementById('tbody-payout').innerHTML = pRows;
+
+      document.getElementById('badge-i').innerText = fInvests.length + " Records";
+      var iRows = "";
+      for (var b = 0; b < fInvests.length; b++) {
+        var itemI = fInvests[b];
+        iRows += '<tr>' +
+          '<td style="color:#64748b; font-weight:700;">#' + (b + 1) + '</td>' +
+          '<td style="color:#94a3b8; font-size:0.75rem;">' + itemI.date + '</td>' +
+          '<td><strong>' + itemI.firm + '</strong><br><span class="tag">Size: ' + itemI.size + '</span></td>' +
+          '<td class="amt-i">' + formatAmount(itemI.usd, itemI.inr) + '</td>' +
+        '</tr>';
+      }
+      document.getElementById('tbody-invest').innerHTML = iRows;
+    }
+
+    render();
+  </script>
+</body>
+</html>
