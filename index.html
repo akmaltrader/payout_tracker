@@ -23,7 +23,9 @@
     .brand h1 { font-size: 1.15rem; font-weight: 800; color: #fff; }
     .brand p { font-size: 0.75rem; color: var(--sub); }
 
-    .currency-box { display: flex; gap: 6px; background: #020617; border: 1px solid var(--border); padding: 4px; border-radius: 8px; }
+    .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .rate-badge { background: rgba(6, 182, 212, 0.12); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.3); padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
+    .currency-box { display: flex; gap: 4px; background: #020617; border: 1px solid var(--border); padding: 4px; border-radius: 8px; }
     .c-btn { background: none; border: none; color: var(--sub); padding: 6px 12px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; cursor: pointer; }
     .c-btn.active { background: #10b981; color: #022c22; }
 
@@ -55,6 +57,7 @@
     tr:hover { background: rgba(255, 255, 255, 0.02); }
 
     .tag { display: inline-block; font-size: 0.68rem; color: #94a3b8; background: #1f2937; padding: 2px 5px; border-radius: 4px; margin-top: 2px; }
+    .tag-split { display: inline-block; font-size: 0.65rem; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 2px 5px; border-radius: 4px; margin-top: 2px; font-weight: 600; }
     .amt-p { color: var(--payout); font-weight: 800; text-align: right; }
     .amt-i { color: var(--invest); font-weight: 800; text-align: right; }
     .p-btn { background: rgba(6, 182, 212, 0.15); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.35); padding: 4px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
@@ -73,11 +76,14 @@
   <header>
     <div class="brand">
       <h1>MD Sakil Akmal • Trading Ledger</h1>
-      <p>15 Verified Payouts & 16 Investment Evaluations (2026)</p>
+      <p>15 Verified Payouts (MFFU 90% Net Profit) & 16 Investment Evaluations (2026)</p>
     </div>
-    <div class="currency-box">
-      <button id="btn-usd" class="c-btn active" onclick="setCurrency('USD')">USD ($)</button>
-      <button id="btn-inr" class="c-btn" onclick="setCurrency('INR')">INR (₹)</button>
+    <div class="header-right">
+      <div class="rate-badge">⚡ 1 USD = ₹98</div>
+      <div class="currency-box">
+        <button id="btn-usd" class="c-btn active" onclick="setCurrency('USD')">USD ($)</button>
+        <button id="btn-inr" class="c-btn" onclick="setCurrency('INR')">INR (₹)</button>
+      </div>
     </div>
   </header>
 
@@ -149,7 +155,7 @@
                 <th>#</th>
                 <th>Date</th>
                 <th>Propfirm & Account</th>
-                <th style="text-align: right">Amount</th>
+                <th style="text-align: right">Net Payout</th>
                 <th style="text-align: center">Proof</th>
               </tr>
             </thead>
@@ -196,42 +202,44 @@
 
   <script>
     var currentCurrency = 'USD';
+    var USD_TO_INR = 98; // 1 USD = 98 INR Flat Rate
 
+    // MFFU 90% Net Profit Split & GFT 100% Certificate Figures
     var PAYOUT_DATA = [
-      { id: 1, date: "2026-04-06", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 84.02, inr: 8200, file: "#1 (1).png" },
-      { id: 2, date: "2026-04-22", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 85.06, inr: 8200, file: "#1 (2).png" },
-      { id: 3, date: "2026-05-28", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 158.27, inr: 15400, file: "#1 (3).png" },
-      { id: 4, date: "2026-06-15", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 90.58, inr: 8800, file: "#1 (4).png" },
-      { id: 5, date: "2026-07-01", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 261.68, inr: 25500, file: "#1 (5).png" },
-      { id: 6, date: "2026-07-16", firm: "Goat Funded Trader (GFT)", size: "5,000$", usd: 124.72, inr: 12100, file: "#1 (6).png" },
-      { id: 7, date: "2026-07-21", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 573.00, inr: 56000, file: "#1 (7).jpg" },
-      { id: 8, date: "2026-07-22", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 717.20, inr: 70000, file: "#1 (8).jpg" },
-      { id: 9, date: "2026-07-23", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 640.70, inr: 62500, file: "#1 (9).jpg" },
-      { id: 10, date: "2026-08-03", firm: "Goat Funded Trader (GFT)", size: "15,000$", usd: 450.95, inr: 44000, file: "#1 (10).png" },
-      { id: 11, date: "2026-08-03", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 506.00, inr: 49000, file: "#1 (11).jpg" },
-      { id: 12, date: "2026-08-04", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 543.40, inr: 53000, file: "#1 (12).jpg" },
-      { id: 13, date: "2026-08-05", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", usd: 644.70, inr: 63000, file: "#1 (13).jpg" },
-      { id: 14, date: "2026-08-11", firm: "Goat Funded Trader (GFT)", size: "5,750$", usd: 117.24, inr: 11000, file: "#1 (14).png" },
-      { id: 15, date: "2026-08-19", firm: "Goat Funded Trader (GFT)", size: "15,000$", usd: 192.14, inr: 18500, file: "#1 (15).png" }
+      { id: 1, date: "2026-04-06", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 84.02, file: "#1 (1).png" },
+      { id: 2, date: "2026-04-22", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 85.06, file: "#1 (2).png" },
+      { id: 3, date: "2026-05-28", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 158.27, file: "#1 (3).png" },
+      { id: 4, date: "2026-06-15", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 90.58, file: "#1 (4).png" },
+      { id: 5, date: "2026-07-01", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 261.68, file: "#1 (5).png" },
+      { id: 6, date: "2026-07-16", firm: "Goat Funded Trader (GFT)", size: "5,000$", split: "100%", usd: 124.72, file: "#1 (6).png" },
+      { id: 7, date: "2026-07-21", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 515.70, file: "#1 (7).jpg" },
+      { id: 8, date: "2026-07-22", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 645.48, file: "#1 (8).jpg" },
+      { id: 9, date: "2026-07-23", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 576.63, file: "#1 (9).jpg" },
+      { id: 10, date: "2026-08-03", firm: "Goat Funded Trader (GFT)", size: "15,000$", split: "100%", usd: 450.95, file: "#1 (10).png" },
+      { id: 11, date: "2026-08-03", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 455.40, file: "#1 (11).jpg" },
+      { id: 12, date: "2026-08-04", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 489.06, file: "#1 (12).jpg" },
+      { id: 13, date: "2026-08-05", firm: "My Funded Futures (MFFU)", size: "Rapid 25,000$", split: "90% Split", usd: 580.23, file: "#1 (13).jpg" },
+      { id: 14, date: "2026-08-11", firm: "Goat Funded Trader (GFT)", size: "5,750$", split: "100%", usd: 117.24, file: "#1 (14).png" },
+      { id: 15, date: "2026-08-19", firm: "Goat Funded Trader (GFT)", size: "15,000$", split: "100%", usd: 192.14, file: "#1 (15).png" }
     ];
 
     var INVEST_DATA = [
-      { id: 1, date: "2026-02-08", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 33, inr: 3300 },
-      { id: 2, date: "2026-04-09", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 43, inr: 4300 },
-      { id: 3, date: "2026-05-13", firm: "Funding Pips", size: "10,000$", usd: 44, inr: 4500 },
-      { id: 4, date: "2026-06-21", firm: "Goat Funded Trader (GFT)", size: "15000*3", usd: 162, inr: 16500 },
-      { id: 5, date: "2026-07-27", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56, inr: 5500 },
-      { id: 6, date: "2026-07-27", firm: "Goat Funded Trader (GFT)", size: "15k*3", usd: 136, inr: 13300 },
-      { id: 7, date: "2026-08-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 55, inr: 5400 },
-      { id: 8, date: "2026-08-13", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56, inr: 5600 },
-      { id: 9, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 63, inr: 6300 },
-      { id: 10, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 65, inr: 6500 },
-      { id: 11, date: "2026-09-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 25, inr: 2500 },
-      { id: 12, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55, inr: 5500 },
-      { id: 13, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55, inr: 5500 },
-      { id: 14, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53, inr: 5300 },
-      { id: 15, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53, inr: 5300 },
-      { id: 16, date: "2026-09-19", firm: "FN FUTURES", size: "25000x3", usd: 192, inr: 19000 }
+      { id: 1, date: "2026-02-08", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 33 },
+      { id: 2, date: "2026-04-09", firm: "Goat Funded Trader (GFT)", size: "5000*3", usd: 43 },
+      { id: 3, date: "2026-05-13", firm: "Funding Pips", size: "10,000$", usd: 44 },
+      { id: 4, date: "2026-06-21", firm: "Goat Funded Trader (GFT)", size: "15000*3", usd: 162 },
+      { id: 5, date: "2026-07-27", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56 },
+      { id: 6, date: "2026-07-27", firm: "Goat Funded Trader (GFT)", size: "15k*3", usd: 136 },
+      { id: 7, date: "2026-08-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 55 },
+      { id: 8, date: "2026-08-13", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 56 },
+      { id: 9, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 63 },
+      { id: 10, date: "2026-08-19", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 65 },
+      { id: 11, date: "2026-09-01", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 25 },
+      { id: 12, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55 },
+      { id: 13, date: "2026-09-02", firm: "TRADIFY", size: "25,000$", usd: 55 },
+      { id: 14, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53 },
+      { id: 15, date: "2026-09-04", firm: "My Funded Futures (MFFU)", size: "25,000$", usd: 53 },
+      { id: 16, date: "2026-09-19", firm: "FN FUTURES", size: "25000x3", usd: 192 }
     ];
 
     function setCurrency(curr) {
@@ -241,11 +249,12 @@
       render();
     }
 
-    function formatAmount(usd, inr) {
+    function formatAmount(usd) {
       if (currentCurrency === 'USD') {
-        return '$' + Number(usd).toFixed(2);
+        return '$' + Number(usd).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
-      return '₹' + Number(inr).toLocaleString('en-IN');
+      var inrVal = Math.round(usd * USD_TO_INR);
+      return '₹' + inrVal.toLocaleString('en-IN');
     }
 
     function openCert(id) {
@@ -255,7 +264,7 @@
       }
       if (!item) return;
 
-      document.getElementById('m-title').innerText = item.firm + " (" + formatAmount(item.usd, item.inr) + ")";
+      document.getElementById('m-title').innerText = item.firm + " (" + formatAmount(item.usd) + ")";
       document.getElementById('m-img').src = encodeURIComponent(item.file);
       document.getElementById('cert-modal').className = 'modal active';
     }
@@ -268,16 +277,14 @@
     function render() {
       var month = document.getElementById('month-filter').value;
 
-      var totalP_USD = 0, totalP_INR = 0;
+      var totalP_USD = 0;
       for (var i = 0; i < PAYOUT_DATA.length; i++) {
         totalP_USD += PAYOUT_DATA[i].usd;
-        totalP_INR += PAYOUT_DATA[i].inr;
       }
 
-      var totalI_USD = 0, totalI_INR = 0;
+      var totalI_USD = 0;
       for (var j = 0; j < INVEST_DATA.length; j++) {
         totalI_USD += INVEST_DATA[j].usd;
-        totalI_INR += INVEST_DATA[j].inr;
       }
 
       var maxP = PAYOUT_DATA[0];
@@ -290,14 +297,14 @@
         if (INVEST_DATA[l].usd > maxI.usd) maxI = INVEST_DATA[l];
       }
 
-      document.getElementById('kpi-payout').innerText = formatAmount(totalP_USD, totalP_INR);
-      document.getElementById('kpi-invest').innerText = formatAmount(totalI_USD, totalI_INR);
-      document.getElementById('kpi-net').innerText = formatAmount(totalP_USD - totalI_USD, totalP_INR - totalI_INR);
+      document.getElementById('kpi-payout').innerText = formatAmount(totalP_USD);
+      document.getElementById('kpi-invest').innerText = formatAmount(totalI_USD);
+      document.getElementById('kpi-net').innerText = formatAmount(totalP_USD - totalI_USD);
 
-      document.getElementById('kpi-high-p').innerText = formatAmount(maxP.usd, maxP.inr);
+      document.getElementById('kpi-high-p').innerText = formatAmount(maxP.usd);
       document.getElementById('kpi-high-p-sub').innerText = maxP.firm + " • " + maxP.date;
 
-      document.getElementById('kpi-high-i').innerText = formatAmount(maxI.usd, maxI.inr);
+      document.getElementById('kpi-high-i').innerText = formatAmount(maxI.usd);
       document.getElementById('kpi-high-i-sub').innerText = maxI.firm + " • " + maxI.date;
 
       var fPayouts = [];
@@ -314,13 +321,13 @@
         }
       }
 
-      var fP_USD = 0, fP_INR = 0;
-      for (var p = 0; p < fPayouts.length; p++) { fP_USD += fPayouts[p].usd; fP_INR += fPayouts[p].inr; }
-      var fI_USD = 0, fI_INR = 0;
-      for (var q = 0; q < fInvests.length; q++) { fI_USD += fInvests[q].usd; fI_INR += fInvests[q].inr; }
+      var fP_USD = 0;
+      for (var p = 0; p < fPayouts.length; p++) { fP_USD += fPayouts[p].usd; }
+      var fI_USD = 0;
+      for (var q = 0; q < fInvests.length; q++) { fI_USD += fInvests[q].usd; }
 
-      document.getElementById('f-p-val').innerText = formatAmount(fP_USD, fP_INR);
-      document.getElementById('f-i-val').innerText = formatAmount(fI_USD, fI_INR);
+      document.getElementById('f-p-val').innerText = formatAmount(fP_USD);
+      document.getElementById('f-i-val').innerText = formatAmount(fI_USD);
 
       document.getElementById('badge-p').innerText = fPayouts.length + " Records";
       var pRows = "";
@@ -329,8 +336,12 @@
         pRows += '<tr>' +
           '<td style="color:#64748b; font-weight:700;">#' + (a + 1) + '</td>' +
           '<td style="color:#94a3b8; font-size:0.75rem;">' + itemP.date + '</td>' +
-          '<td><strong>' + itemP.firm + '</strong><br><span class="tag">' + itemP.size + '</span></td>' +
-          '<td class="amt-p">' + formatAmount(itemP.usd, itemP.inr) + '</td>' +
+          '<td>' +
+            '<strong>' + itemP.firm + '</strong><br>' +
+            '<span class="tag">' + itemP.size + '</span> ' +
+            (itemP.split !== "100%" ? '<span class="tag-split">' + itemP.split + '</span>' : '') +
+          '</td>' +
+          '<td class="amt-p">' + formatAmount(itemP.usd) + '</td>' +
           '<td style="text-align: center;"><button class="p-btn" onclick="openCert(' + itemP.id + ')">👁 Proof</button></td>' +
         '</tr>';
       }
@@ -344,7 +355,7 @@
           '<td style="color:#64748b; font-weight:700;">#' + (b + 1) + '</td>' +
           '<td style="color:#94a3b8; font-size:0.75rem;">' + itemI.date + '</td>' +
           '<td><strong>' + itemI.firm + '</strong><br><span class="tag">Size: ' + itemI.size + '</span></td>' +
-          '<td class="amt-i">' + formatAmount(itemI.usd, itemI.inr) + '</td>' +
+          '<td class="amt-i">' + formatAmount(itemI.usd) + '</td>' +
         '</tr>';
       }
       document.getElementById('tbody-invest').innerHTML = iRows;
